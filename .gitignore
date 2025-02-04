@@ -1,1 +1,6 @@
+.scannerwork
+__pycache__
+sonar-scanner-4.2.0.1873-linux
+sonar-scanner-cli-4.2.0.1873-linux.zip
+sonar.properties
 venv
