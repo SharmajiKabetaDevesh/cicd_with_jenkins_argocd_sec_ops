@@ -12,8 +12,7 @@ pipeline {
         REGISTRY_CREDENTIALS= credentials("docker-cred")
         GIT_REPO_NAME = "cicd_with_jenkins_argocd_sec_ops"
         GIT_USER_NAME = "SharmajiKabetaDevesh"
-        version=${currentBuild.number}
-        prev_version=$((version - 1)) 
+ 
     }
 
     stages {
@@ -62,7 +61,8 @@ pipeline {
                 
                 # Pull latest changes
                 git pull origin main
-            
+                export version=${currentBuild.number}
+                export prev_version=$((version - 1))
                 
                 # Update image version in YAML
                 sed -i "s/flask${prev_version}/flask${version}/g" kubefiles/deployment.yaml
