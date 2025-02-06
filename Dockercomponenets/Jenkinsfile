@@ -6,7 +6,7 @@ pipeline {
         }
     }
 
-    environment {
+    environment{
         SonarUrl = "http://4.247.173.180:9000"
         DOCKER_IMAGE="mldeploymentflask${BUILD_NUMBER}"
         REGISTRY_CREDENTIALS= credentials("docker-cred")
@@ -77,4 +77,5 @@ pipeline {
            }
         }
     }
+   }
 }
