@@ -8,7 +8,7 @@ pipeline{
     stages{
         stage("checkout"){
             steps{
-             git branch:"main", url: "https://github.com/SharmajiKabetaDevesh/cicd_with_jenkins_argocd_sec_ops.git"
+             git branch: 'main', url: 'https://github.com/SharmajiKabetaDevesh/cicd_with_jenkins_argocd_sec_ops.git'
             }
         }
         stage('static code analysis'){
@@ -27,8 +27,8 @@ pipeline{
             }
             steps{
                script{
-                sh 'cd  && docker build -t ${DOCKER_IMAGE} .'
-                def dockerImage =docker.image("${DOCKER_IAMGE}")
+                sh 'docker build -t ${DOCKER_IMAGE} .'
+                def dockerImage =docker.image("${DOCKER_IMAGE}")
                 docker.withRegistry('https://index.docker.io/v1/', "docker-cred") {
                 dockerImage.push()
             }
