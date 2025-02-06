@@ -50,7 +50,7 @@ pipeline{
                 git config --user.email "deveshrs2016@gmail.com"
                 git config --user.name  ${GIT_USER_NAME}
                 git config --user.password ${GITHUB_TOKEN}
-                export version =${BUILD_NUMBER}
+                export version =$BUILD_NUMBER
                 export prev_version=$((version-1))
                 sed -i "s/flask${prev_version}/flask${version}/g" kubefiles/deployment.yaml
                 cat kubefiles/deployment.yaml
