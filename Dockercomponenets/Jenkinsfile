@@ -53,11 +53,10 @@ pipeline {
                 sh"""
                 ls
                 git config --global --add safe.directory "*"
-                git pull https://github.com/SharmajiKabetaDevesh/cicd_with_jenkins_argocd_sec_ops.git
                 git config --user.email "deveshrs2016@gmail.com"
                 git config --user.name  ${GIT_USER_NAME}
                 git config --user.password ${GITHUB_TOKEN}
-                export version =${BUILD_NUMBER}
+                export version=${BUILD_NUMBER}
                 export prev_version=$((version-1))
                 sed -i "s/flask${prev_version}/flask${version}/g" kubefiles/deployment.yaml
                 cat kubefiles/deployment.yaml
