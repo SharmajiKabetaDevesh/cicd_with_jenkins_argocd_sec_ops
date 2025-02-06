@@ -5,14 +5,12 @@ pipeline {
             args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
-
     environment{
         SonarUrl = "http://4.247.173.180:9000"
         DOCKER_IMAGE="mldeploymentflask${currentBuild.number}"
         REGISTRY_CREDENTIALS= credentials("docker-cred")
         GIT_REPO_NAME = "cicd_with_jenkins_argocd_sec_ops"
         GIT_USER_NAME = "SharmajiKabetaDevesh"
- 
     }
 
     stages {
@@ -51,29 +49,25 @@ pipeline {
         stage('Updating the imageVersion on Git'){
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
-                sh """
+                sh '''
                 ls
                 git config --global --add safe.directory "*"
                 
                 # Set Git user info
                 git config --global user.email "deveshrs2016@gmail.com"
                 git config --global user.name "Devesh Sharma"
-                
                 # Pull latest changes
                 git pull origin main
-                export version=${currentBuild.number}
-                export prev_version=$((version - 1))
-                
+                export version=$BUILD_NUMBER
+                export prev_version=$((version-1))
                 # Update image version in YAML
                 sed -i "s/flask${prev_version}/flask${version}/g" kubefiles/deployment.yaml
                 cat kubefiles/deployment.yaml
-                
                 # Commit and Push Changes
                 git add kubefiles/deployment.yaml
                 git commit -m "Update deployment image to version ${version}"
                 git push https://${GITHUB_TOKEN}@github.com/SharmajiKabetaDevesh/cicd_with_jenkins_argocd_sec_ops HEAD:main
-            """
-           
+            '''
            }
         }
     }
