@@ -7,7 +7,7 @@ pipeline {
     }
     environment{
         SonarUrl = "http://4.247.173.180:9000"
-        DOCKER_IMAGE="devesh77388/mlmodel-flask${currentBuild.number}"
+        DOCKER_IMAGE="devesh77388/mlmodel-flask:${currentBuild.number}"
         REGISTRY_CREDENTIALS= credentials("docker-cred")
         GIT_REPO_NAME = "cicd_with_jenkins_argocd_sec_ops"
         GIT_USER_NAME = "SharmajiKabetaDevesh"
@@ -60,7 +60,7 @@ pipeline {
                 export version=$BUILD_NUMBER
                 export prev_version=$((version-1))
                 # Update image version in YAML
-                sed -i "s/flask${prev_version}/flask${version}/g" kubefiles/deployment.yaml
+                sed -i "s/flask:${prev_version}/flask:${version}/g" kubefiles/deployment.yaml
                 cat kubefiles/deployment.yaml
                 # Commit and Push Changes
                 git add kubefiles/deployment.yaml

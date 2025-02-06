@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: mlmodel-deployment
-          image: devesh77388/mlmodel-flask19
+          image: devesh77388/mlmodel-flask:19
           ports:
             - containerPort: 5000
