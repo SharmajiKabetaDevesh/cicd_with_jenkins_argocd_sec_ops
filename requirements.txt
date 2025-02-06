@@ -3,6 +3,3 @@ numpy
 joblib
 scikit-learn
 flask
-pylint 
-bandit 
-flake8
