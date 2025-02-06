@@ -8,11 +8,11 @@ pipeline {
 
     environment{
         SonarUrl = "http://4.247.173.180:9000"
-        DOCKER_IMAGE="mldeploymentflask${BUILD_NUMBER}"
+        DOCKER_IMAGE="mldeploymentflask${currentBuild.number}"
         REGISTRY_CREDENTIALS= credentials("docker-cred")
         GIT_REPO_NAME = "cicd_with_jenkins_argocd_sec_ops"
         GIT_USER_NAME = "SharmajiKabetaDevesh"
-        version=${BUILD_NUMBER}
+        version=${currentBuild.number}
         prev_version=$((version - 1)) 
     }
 
