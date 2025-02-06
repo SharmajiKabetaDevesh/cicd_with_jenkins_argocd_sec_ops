@@ -15,7 +15,7 @@ spec:
         app: mlmodel-deployment
     spec:
       containers:
-      - name: mlmodel-deployment
-        image: devesh77388/mlmodel-flask1
-        ports:
-        - containerPort: 5000
+        - name: mlmodel-deployment
+          image: devesh77388/mlmodel-flask23
+          ports:
+            - containerPort: 5000
