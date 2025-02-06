@@ -1,0 +1,28 @@
+pipeline{
+    agent{
+        docker{
+        
+            image 'devesh77388/pysonar'
+            args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
+        
+        }
+    }
+     stages{
+        stage("checkout"){
+            steps{
+             git branch: 'main', url: 'https://github.com/SharmajiKabetaDevesh/cicd_with_jenkins_argocd_sec_ops.git'
+            }
+        }
+        stage('static code analysis'){
+            environment{
+                SonarUrl= "http://4.247.173.180:9000"
+            }
+            steps{
+                withCredential([string(credentialsId:'sonarqube',variable:'SONAR_AUTH_TOKEN')])
+                sh 'ls -ltr'
+                sh 'sonar-scanner -X -Dsonar.projectKey="MlDeployment" -Dsonar.login=${SONAR_AUTH_TOKEN} -Dsonar.host.url=${SonarUrl}'
+            }
+        }
+        
+    }
+}
